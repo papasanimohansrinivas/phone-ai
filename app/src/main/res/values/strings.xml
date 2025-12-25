@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="accessibility_service_description">This agent helps you navigate apps automatically by reading the screen and clicking buttons.</string>
+</resources>
