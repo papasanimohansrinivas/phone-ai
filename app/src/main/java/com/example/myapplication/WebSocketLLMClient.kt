@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 class WebSocketLLMClient(private val actionChannel: Channel<AgentCommand>) : WebSocketListener() {
 
     // 1. API KEY & URL
-    private val apiKey = "AIzaSyC9NG_1lZWByAGM1P-XkYQ_NBiCtPkK59o" // <-- VERIFY THIS IS CORRECT
+    private val apiKey = "" // <-- VERIFY THIS IS CORRECT
     private val wsUrl = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService/BidiGenerateContent?key=$apiKey"
 
     private var webSocket: WebSocket? = null
