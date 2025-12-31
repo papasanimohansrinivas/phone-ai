@@ -16,7 +16,7 @@ class NavigationService : AccessibilityService() {
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.IO + job)
     private val executor by lazy { ActionExecutor(this) }
-    private val llmClient = LLMClient()
+//    private val llmClient = LLMClient()
     private val actionHistory = mutableListOf<String>()
 
     companion object {
@@ -38,6 +38,17 @@ class NavigationService : AccessibilityService() {
     }
 
     private suspend fun startLoop(goal: String) {
+        val prefs = PreferenceManager(this)
+        val apiKey = prefs.getApiKey()
+
+        if (apiKey.isNullOrEmpty()) {
+            Log.e("NavigationService", "API Key missing. Please set it in the app.")
+            // Optional: You could dispatch a Toast on the main thread here to warn the user
+            isRunning = false
+            currentGoal = null
+            return
+        }
+        val llmClient = LLMClient(apiKey)
         var todo = "- [ ] Start task"
         var results = ""
         val history = mutableListOf<String>()
@@ -46,7 +57,7 @@ class NavigationService : AccessibilityService() {
         // Define the JSON parser
         val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true; isLenient = true }
 
-        while (step < 20 && isRunning) {
+        while (step < 105 && isRunning) {
             // 1. Get Screen Dimensions
             val metrics = resources.displayMetrics
             val width = metrics.widthPixels

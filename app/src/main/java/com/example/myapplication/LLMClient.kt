@@ -27,9 +27,9 @@ data class AgentDecision(
     val action: JsonArray // List of actions to execute sequentially
 )
 
-class LLMClient {
+class LLMClient(private val apiKey: String) {
 
-    private val apiKey = "AIzaSyC9NG_1lZWByAGM1P-XkYQ_NBiCtPkK59o" // Replace with your actual key
+//    private val apiKey = "" // Replace with your actual key
     private val modelName = "gemini-2.5-pro" // Or gemini-1.5-pro for better reasoning
 
     private val client = OkHttpClient.Builder()
